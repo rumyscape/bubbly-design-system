@@ -1,0 +1,18 @@
+{
+  "name": "@bubbly-design-system/project",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "check-types": "turbo run check-types"
+  },
+  "packageManager": "pnpm@10.17.1",
+  "devDependencies": {
+    "@biomejs/biome": "^2.2.5",
+    "@bubbly-lab/biome-config": "^1.0.0",
+    "turbo": "^2.5.8",
+    "typescript": "^5.9.3"
+  }
+}

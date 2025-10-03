@@ -1,0 +1,19 @@
+{
+  "name": "@bubbly-design-system/react",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [
+    "bubbly-design-system",
+    "bubbly-lab",
+    "design-system"
+  ],
+  "homepage": "https://github.com/rumyscape/bubbly-design-system",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rumyscape/bubbly-design-system.git",
+    "directory": "packages/react"
+  },
+  "author": "@bubbly-lab/dev",
+  "license": "MIT",
+  "packageManager": "pnpm@10.17.1"
+}
