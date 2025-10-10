@@ -1,0 +1,24 @@
+{
+  "name": "@bubbly-design-system/tokens",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "keywords": [
+    "bubbly-design-system",
+    "bubbly-lab",
+    "design-system",
+    "design-token"
+  ],
+  "homepage": "https://github.com/rumyscape/bubbly-design-system",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rumyscape/bubbly-design-system.git",
+    "directory": "packages/react"
+  },
+  "author": "@bubbly-lab/dev",
+  "license": "MIT",
+  "packageManager": "pnpm@10.18.1",
+  "devDependencies": {
+    "style-dictionary": "^5.1.1"
+  }
+}

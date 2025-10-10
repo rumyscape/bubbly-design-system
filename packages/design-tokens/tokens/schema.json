@@ -1,0 +1,531 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/dtcg-3e.ext.schema.json",
+  "title": "DTCG Design Tokens (Third Editors’ Draft) - Unofficial JSON Schema with Composite Types and $schema property",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional JSON Schema reference for editor tooling"
+    },
+    "$description": { "type": "string" },
+    "$type": { "$ref": "#/$defs/typeEnum" },
+    "$deprecated": { "oneOf": [{ "type": "boolean" }, { "type": "string" }] },
+    "$extensions": { "type": "object" }
+  },
+  "patternProperties": {
+    "^(?!\\$)[^{}.]+$": {
+      "description": "Token or group key: must NOT start with $, nor contain { } .",
+      "oneOf": [{ "$ref": "#/$defs/token" }, { "$ref": "#/$defs/group" }]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "group": {
+      "type": "object",
+      "properties": {
+        "$description": { "type": "string" },
+        "$type": { "$ref": "#/$defs/typeEnum" },
+        "$deprecated": {
+          "oneOf": [{ "type": "boolean" }, { "type": "string" }]
+        },
+        "$extensions": { "type": "object" }
+      },
+      "patternProperties": {
+        "^(?!\\$)[^{}.]+$": {
+          "oneOf": [{ "$ref": "#/$defs/token" }, { "$ref": "#/$defs/group" }]
+        }
+      },
+      "additionalProperties": false
+    },
+    "token": {
+      "type": "object",
+      "properties": {
+        "$description": { "type": "string" },
+        "$type": { "$ref": "#/$defs/typeEnum" },
+        "$deprecated": {
+          "oneOf": [{ "type": "boolean" }, { "type": "string" }]
+        },
+        "$extensions": { "type": "object" },
+        "$value": {}
+      },
+      "required": ["$value"],
+      "allOf": [
+        {
+          "if": {
+            "properties": { "$type": { "const": "color" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/colorValue" }
+        },
+        {
+          "if": {
+            "properties": { "$type": { "const": "dimension" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/dimensionValue" }
+        },
+        {
+          "if": {
+            "properties": { "$type": { "const": "duration" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/durationValue" }
+        },
+        {
+          "if": {
+            "properties": { "$type": { "const": "number" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/numberValue" }
+        },
+        {
+          "if": {
+            "properties": { "$type": { "const": "fontFamily" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/fontFamilyValue" }
+        },
+        {
+          "if": {
+            "properties": { "$type": { "const": "fontWeight" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/fontWeightValue" }
+        },
+        {
+          "if": {
+            "properties": { "$type": { "const": "cubicBezier" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/cubicBezierValue" }
+        },
+        {
+          "if": {
+            "properties": { "$type": { "const": "shadow" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/shadowValue" }
+        },
+        {
+          "if": {
+            "properties": { "$type": { "const": "border" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/borderValue" }
+        },
+        {
+          "if": {
+            "properties": { "$type": { "const": "typography" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/typographyValue" }
+        },
+        {
+          "if": {
+            "properties": { "$type": { "const": "gradient" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/gradientValue" }
+        },
+        {
+          "if": {
+            "properties": { "$type": { "const": "transition" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/transitionValue" }
+        },
+        {
+          "if": {
+            "properties": { "$type": { "const": "strokeStyle" } },
+            "required": ["$type"]
+          },
+          "then": { "$ref": "#/$defs/strokeStyleValue" }
+        }
+      ]
+    },
+    "typeEnum": {
+      "type": "string",
+      "enum": [
+        "color",
+        "dimension",
+        "fontFamily",
+        "fontWeight",
+        "duration",
+        "cubicBezier",
+        "number",
+        "strokeStyle",
+        "border",
+        "transition",
+        "shadow",
+        "gradient",
+        "typography"
+      ]
+    },
+    "alias": {
+      "type": "string",
+      "description": "Reference: {path.to.token}",
+      "pattern": "^\\{[^{}]+\\}$"
+    },
+    "colorValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [
+            { "$ref": "#/$defs/alias" },
+            {
+              "type": "object",
+              "properties": {
+                "colorSpace": { "type": "string", "const": "srgb" },
+                "components": {
+                  "type": "array",
+                  "items": { "type": "number", "minimum": 0, "maximum": 1 },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "alpha": { "type": "number", "minimum": 0, "maximum": 1 },
+                "hex": {
+                  "type": "string",
+                  "pattern": "^#?[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+                }
+              },
+              "required": ["colorSpace", "components"],
+              "additionalProperties": true
+            }
+          ]
+        }
+      }
+    },
+    "dimensionValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [
+            { "$ref": "#/$defs/alias" },
+            {
+              "type": "object",
+              "properties": {
+                "value": { "type": "number" },
+                "unit": {
+                  "type": "string",
+                  "enum": ["px", "rem", "em", "vh", "vw", "%"]
+                }
+              },
+              "required": ["value", "unit"],
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    },
+    "durationValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [
+            { "$ref": "#/$defs/alias" },
+            {
+              "type": "object",
+              "properties": {
+                "value": { "type": "number" },
+                "unit": { "type": "string", "enum": ["ms", "s"] }
+              },
+              "required": ["value", "unit"],
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    },
+    "numberValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [{ "$ref": "#/$defs/alias" }, { "type": "number" }]
+        }
+      }
+    },
+    "fontFamilyValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [
+            { "$ref": "#/$defs/alias" },
+            { "type": "string", "minLength": 1 }
+          ]
+        }
+      }
+    },
+    "fontWeightValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [
+            { "$ref": "#/$defs/alias" },
+            {
+              "oneOf": [
+                { "type": "integer", "minimum": 1, "maximum": 1000 },
+                {
+                  "type": "string",
+                  "enum": [
+                    "thin",
+                    "extraLight",
+                    "light",
+                    "normal",
+                    "medium",
+                    "semiBold",
+                    "bold",
+                    "extraBold",
+                    "black"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "cubicBezierValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [
+            { "$ref": "#/$defs/alias" },
+            {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 4,
+              "maxItems": 4
+            }
+          ]
+        }
+      }
+    },
+    "strokeStyleValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [
+            { "$ref": "#/$defs/alias" },
+            {
+              "type": "object",
+              "properties": {
+                "style": {
+                  "type": "string",
+                  "enum": ["solid", "dashed", "dotted", "double"]
+                },
+                "dash": {
+                  "type": "array",
+                  "items": { "type": "number", "minimum": 0 }
+                },
+                "cap": {
+                  "type": "string",
+                  "enum": ["butt", "round", "square"]
+                },
+                "join": {
+                  "type": "string",
+                  "enum": ["miter", "round", "bevel"]
+                }
+              },
+              "required": ["style"],
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    },
+    "borderValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [
+            { "$ref": "#/$defs/alias" },
+            {
+              "type": "object",
+              "properties": {
+                "width": { "$ref": "#/$defs/dimensionAtom" },
+                "style": {
+                  "type": "string",
+                  "enum": ["none", "solid", "dashed", "dotted", "double"]
+                },
+                "color": { "$ref": "#/$defs/colorAtom" },
+                "radius": { "$ref": "#/$defs/dimensionAtom" }
+              },
+              "required": ["width", "style", "color"],
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    },
+    "shadowValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [
+            { "$ref": "#/$defs/alias" },
+            {
+              "oneOf": [
+                { "$ref": "#/$defs/shadowLayer" },
+                {
+                  "type": "array",
+                  "items": { "$ref": "#/$defs/shadowLayer" },
+                  "minItems": 1
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "shadowLayer": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["drop", "inner"] },
+        "offsetX": { "$ref": "#/$defs/dimensionAtom" },
+        "offsetY": { "$ref": "#/$defs/dimensionAtom" },
+        "blur": { "$ref": "#/$defs/dimensionAtom" },
+        "spread": { "$ref": "#/$defs/dimensionAtom" },
+        "color": { "$ref": "#/$defs/colorAtom" }
+      },
+      "required": ["type", "offsetX", "offsetY", "blur", "color"],
+      "additionalProperties": false
+    },
+    "gradientValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [
+            { "$ref": "#/$defs/alias" },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": ["linear", "radial", "conic"]
+                },
+                "angle": { "type": "number" },
+                "stops": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "position": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "color": { "$ref": "#/$defs/colorAtom" }
+                    },
+                    "required": ["position", "color"],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": ["kind", "stops"],
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    },
+    "typographyValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [
+            { "$ref": "#/$defs/alias" },
+            {
+              "type": "object",
+              "properties": {
+                "fontFamily": { "type": "string" },
+                "fontSize": { "$ref": "#/$defs/dimensionAtom" },
+                "fontWeight": {
+                  "oneOf": [
+                    { "type": "integer", "minimum": 1, "maximum": 1000 },
+                    { "type": "string" }
+                  ]
+                },
+                "lineHeight": {
+                  "oneOf": [
+                    { "$ref": "#/$defs/dimensionAtom" },
+                    { "type": "number" }
+                  ]
+                },
+                "letterSpacing": { "$ref": "#/$defs/dimensionAtom" },
+                "paragraphSpacing": { "$ref": "#/$defs/dimensionAtom" }
+              },
+              "required": ["fontFamily", "fontSize", "lineHeight"],
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    },
+    "transitionValue": {
+      "properties": {
+        "$value": {
+          "oneOf": [
+            { "$ref": "#/$defs/alias" },
+            {
+              "type": "object",
+              "properties": {
+                "property": { "type": "string" },
+                "duration": { "$ref": "#/$defs/durationAtom" },
+                "delay": { "$ref": "#/$defs/durationAtom" },
+                "timingFunction": {
+                  "oneOf": [
+                    { "$ref": "#/$defs/cubicBezierAtom" },
+                    { "type": "string" }
+                  ]
+                }
+              },
+              "required": ["duration", "timingFunction"],
+              "additionalProperties": false
+            }
+          ]
+        }
+      }
+    },
+    "dimensionAtom": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "number" },
+        "unit": {
+          "type": "string",
+          "enum": ["px", "rem", "em", "vh", "vw", "%"]
+        }
+      },
+      "required": ["value", "unit"],
+      "additionalProperties": false
+    },
+    "durationAtom": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "number" },
+        "unit": { "type": "string", "enum": ["ms", "s"] }
+      },
+      "required": ["value", "unit"],
+      "additionalProperties": false
+    },
+    "cubicBezierAtom": {
+      "type": "array",
+      "items": { "type": "number" },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "colorAtom": {
+      "oneOf": [
+        { "$ref": "#/$defs/alias" },
+        {
+          "type": "object",
+          "properties": {
+            "colorSpace": { "type": "string", "const": "srgb" },
+            "components": {
+              "type": "array",
+              "items": { "type": "number", "minimum": 0, "maximum": 1 },
+              "minItems": 3,
+              "maxItems": 3
+            },
+            "alpha": { "type": "number", "minimum": 0, "maximum": 1 },
+            "hex": {
+              "type": "string",
+              "pattern": "^#?[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+            }
+          },
+          "required": ["colorSpace", "components"],
+          "additionalProperties": true
+        }
+      ]
+    }
+  }
+}
