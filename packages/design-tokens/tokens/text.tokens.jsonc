@@ -1,0 +1,102 @@
+{
+  "text": {
+    "fonts": {
+      "$type": "fontFamily",
+      "sans": {
+        "$value": "Pretendard Variable, sans-serif"
+      },
+      // default font는 css 전반에 별도로 적용시키는 폰트를 의미합니다.
+      // 따라서 default 폰트를 쓰는 typography는 별도로 폰트를 적용시키지 않아도 됩니다.
+      "default": {
+        "$value": "{text.fonts.sans}"
+      }
+    }
+  },
+  "typography": {
+    "$type": "typography",
+    "large-title": {
+      "$value": {
+        "fontWeight": 700,
+        "fontSize": "36px",
+        "lineHeight": "50px"
+      }
+    },
+    "title1": {
+      "$value": {
+        "fontWeight": 700,
+        "fontSize": "28px",
+        "lineHeight": "42px"
+      }
+    },
+    "title2": {
+      "$value": {
+        "fontWeight": 700,
+        "fontSize": "24px",
+        "lineHeight": "36px"
+      }
+    },
+    "title3": {
+      "$value": {
+        "fontWeight": 700,
+        "fontSize": "20px",
+        "lineHeight": "32px"
+      }
+    },
+    "subtitle1": {
+      "$value": {
+        "fontWeight": 700,
+        "fontSize": "18px",
+        "lineHeight": "26px"
+      }
+    },
+    "body1-regular": {
+      "$value": {
+        "fontWeight": 400,
+        "fontSize": "16px",
+        "lineHeight": "26px"
+      }
+    },
+    "body1-semibold": {
+      "$value": {
+        "fontWeight": 600,
+        "fontSize": "16px",
+        "lineHeight": "26px"
+      }
+    },
+    "body2-regular": {
+      "$value": {
+        "fontWeight": 400,
+        "fontSize": "15px",
+        "lineHeight": "24px"
+      }
+    },
+    "body2-semibold": {
+      "$value": {
+        "fontWeight": 600,
+        "fontSize": "15px",
+        "lineHeight": "24px"
+      }
+    },
+    "caption1": {
+      "$value": {
+        "fontWeight": 400,
+        "fontSize": "14px",
+        "lineHeight": "22px"
+      }
+    },
+    "caption2": {
+      "$value": {
+        "fontWeight": 400,
+        "fontSize": "12px",
+        "lineHeight": "18px"
+      }
+    },
+    "caption3": {
+      "$value": {
+        "fontWeight": 400,
+        "fontSize": "11px",
+        "lineHeight": "16px"
+      }
+    }
+  }
+}
