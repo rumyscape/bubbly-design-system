@@ -23,7 +23,7 @@ importers:
 
   packages/react: {}
 
-  packages/tokens:
+  packages/design-tokens:
     devDependencies:
       style-dictionary:
         specifier: ^5.1.1
