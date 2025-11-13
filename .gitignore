@@ -1,6 +1,10 @@
 # node
 node_modules
 
+# build artifacts
+dist/
+build/
+
 # code editors
 .idea
 .vscode

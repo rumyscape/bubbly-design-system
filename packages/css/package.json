@@ -1,0 +1,39 @@
+{
+  "name": "@bubbly-design-system/css",
+  "version": "0.0.0",
+  "description": "Distribution-ready CSS bundle for Bubbly design tokens.",
+  "type": "module",
+  "keywords": [
+    "bubbly-design-system",
+    "bubbly-lab",
+    "design-system",
+    "css",
+    "design-token"
+  ],
+  "homepage": "https://github.com/rumyscape/bubbly-design-system",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rumyscape/bubbly-design-system.git",
+    "directory": "packages/css"
+  },
+  "author": "@bubbly-lab/dev",
+  "license": "MIT",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "default": "./dist/tokens.css"
+    },
+    "./tokens.css": "./dist/tokens.css"
+  },
+  "style": "./dist/tokens.css",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "prepare": "pnpm run build"
+  },
+  "dependencies": {
+    "@bubbly-design-system/design-tokens": "workspace:*"
+  }
+}
