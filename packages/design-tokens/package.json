@@ -13,10 +13,14 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rumyscape/bubbly-design-system.git",
-    "directory": "packages/react"
+    "directory": "packages/design-tokens"
   },
   "author": "@bubbly-lab/dev",
   "license": "MIT",
+  "scripts": {
+    "build": "style-dictionary build",
+    "dev": "style-dictionary build --watch"
+  },
   "devDependencies": {
     "style-dictionary": "^5.1.1"
   }

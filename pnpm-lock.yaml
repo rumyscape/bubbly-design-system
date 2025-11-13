@@ -21,13 +21,19 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/react: {}
+  packages/css:
+    dependencies:
+      '@bubbly-design-system/design-tokens':
+        specifier: workspace:*
+        version: link:../design-tokens
 
   packages/design-tokens:
     devDependencies:
       style-dictionary:
         specifier: ^5.1.1
         version: 5.1.1
+
+  packages/react: {}
 
 packages:
 
@@ -1092,6 +1098,7 @@ snapshots:
       tslib: 2.8.1
 
   tslib@2.8.1: {}
+
   turbo-darwin-64@2.5.8:
     optional: true
 

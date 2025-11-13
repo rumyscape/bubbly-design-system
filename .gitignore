@@ -1,6 +1,11 @@
 # node
 node_modules
 
+# build artifacts
+dist/
+build/
+.turbo/
+
 # code editors
 .idea
 .vscode
