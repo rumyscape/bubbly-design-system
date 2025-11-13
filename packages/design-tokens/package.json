@@ -17,7 +17,6 @@
   },
   "author": "@bubbly-lab/dev",
   "license": "MIT",
-  "packageManager": "pnpm@10.18.1",
   "devDependencies": {
     "style-dictionary": "^5.1.1"
   }

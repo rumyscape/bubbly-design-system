@@ -14,6 +14,5 @@
     "directory": "packages/react"
   },
   "author": "@bubbly-lab/dev",
-  "license": "MIT",
-  "packageManager": "pnpm@10.18.1"
+  "license": "MIT"
 }
